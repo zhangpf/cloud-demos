@@ -1,30 +1,42 @@
+# Copyright (c) 2018 Pengfei Zhang <zpfalpc23@gmail.com>
+
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 @0xf79af02aadd13d6d;
-
-struct Date {
-    year @0 :Int16;
-    month @1 :UInt8;
-    day @2 :UInt8;
-}
-
-struct Blog {
-    data @0 :Date;
-    author @1 :Text;
-    title @2 :Text;
-    body @3 :Text;
-}
 
 interface BlogStore {
 
-    struct LoadResult {
-        result :union {
-            failure @0 :Text;
-            blog @1 :Blog;
+    interface Blog {
+        read @0 () -> (blog :Text);
+    }
+
+    struct Store {
+        union {
+            blog @0 :Text;
+            previousGet @1 :Blog;
         }
     }
 
-    load @0 (key :UInt64) -> (result :LoadResult);
+    get @0 (key :UInt64) -> (blog :Blog);
 
-    store @1 (key :UInt64, value :Blog) -> (result :Bool);
+    store @1 (key :UInt64, blog :Store);
 
-    remove @2 (key :UInt64);
+    remove @2 (key :UInt64) -> (blog :Blog);
 }

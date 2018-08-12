@@ -1,17 +1,18 @@
 
+.PHONY : clean all
 
-all: client server
+CAPNP_DEPS := $(shell pkg-config --cflags --libs capnp-rpc)
+
+all: server client
 
 blogstore.capnp.h blogstore.capnp.c++: blogstore.capnp
-	@capnpc -oc++ $<
+	capnpc -oc++ $<
 
 client: client.cpp blogstore.capnp.c++ blogstore.capnp.h
-	@g++ -std=c++14 -Wall client.cpp blogstore.capnp.c++ \
-    	$(pkg-config --cflags --libs capnp-rpc) -o $@
+	g++ -std=c++14 -Wall client.cpp blogstore.capnp.c++ $(CAPNP_DEPS) -o $@
 
 server: server.cpp blogstore.capnp.c++ blogstore.capnp.h
-	@g++ -std=c++14 -Wall server.cpp blogstore.capnp.c++ \
-    	$(pkg-config --cflags --libs capnp-rpc) -o $@
+	g++ -std=c++14 -Wall server.cpp blogstore.capnp.c++ $(CAPNP_DEPS) -o $@
 
 clean:
-	@rm -f clean server blogstore.capnp.c++ blogstore.capnp.h
+	rm -f client server blogstore.capnp.c++ blogstore.capnp.h
