@@ -1,4 +1,4 @@
-# A simple example to use Capnproto
+# A simple example on Capnproto
 ---------
 
 ## Introduction
@@ -8,12 +8,14 @@ Using [capnproto](https://capnproto.org/) to implement a key-value storage servi
   * `store(key, blog)`: store the key and blog pair.
   * `remove(key)`: remove the key and cosponding blog from the storage.
 
-Moreover, we pipeline `get` and `store` operation to implement the `copy(key1, key2)` operation, without changing the interface.
+Moreover, we pipeline `get` and `store` operation to implement the `copy(key1, key2)` operation, without changing the interface capnp file.
 
 
-## Build and Run
+## Dependencies
 
-Build and pass the test on Ubuntu 16.04.
+Having been tested on Ubuntu 16.04 and Mac OS.
+
+### Linux
 
 Install dependencies:
 ```
@@ -32,7 +34,14 @@ sudo make install
 sudo ldconfig
 ```
 
-Build:
+### Mac OS
+```
+brew install capnp
+```
+
+## Run
+
+Build it.
 ```
 make all
 ```
@@ -55,6 +64,20 @@ rm -f /tmp/capnp-$$
 ```
 
 Enjoy it!
+
+## Performance
+
+The below table shown the average operation latency on c3.large instance in AWS US East (Virginia).
+
+| Operation          | Get   | Store | Remove | Copy  |
+| :----------------: | :---: | :---: | :----: | :---: |
+| Unix domain socket | 247µs | 175µs | 359µs  | 267µs |
+| Same host          | 267µs | 180µs | 363µs  | 318µs |
+| Local network      | 344µs | 268µs | 483µs  | 338µs |
+
+The time for `copy` is slightly larger than that of `get`, but when server and client are on different host, the `copy` is better than `get`, for there is no need to send back blog data in `copy`.
+
+Moreover, `copy` is much smaller than the sum of `get` and `store` in all cases.
 
 ## Note
 Some of the code is adopted from [offical samples](https://github.com/capnproto/capnproto/blob/master/c%2B%2B/samples).
