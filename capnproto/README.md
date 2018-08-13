@@ -77,16 +77,15 @@ Enjoy it!
 
 ## Performance
 
-The below table shows the average operation latency on the c3.large instance in AWS US East (Virginia).
+The below table shows the average operation latency on the c3.large instance in AWS US East (Virginia), and the network condition is moderate.
 
 | Operation          | Get   | Store | Remove | Copy  |
 | :----------------: | :---: | :---: | :----: | :---: |
-| Unix domain socket | 247µs | 175µs | 179µs  | 267µs |
-| Loopback device    | 267µs | 180µs | 181µs  | 318µs |
-| Local network      | 344µs | 268µs | 241µs  | 338µs |
+| Unix domain socket | 207µs | 161µs | 152µs  | 232µs |
+| Loopback device    | 246µs | 163µs | 152µs  | 267µs |
+| Local network      | 446µs | 372µs | 301µs  | 381µs |
 
-The time for `copy` is slightly larger than that of `get`, but when server and client are on different hosts, the `copy` is better than `get`, for there is no need to send back blog data in `copy`.
-
+The time for `copy` is comparable with that of `get`.
 Moreover, `copy` is much smaller than the sum of `get` and `store` in all cases.
 
 ## Note

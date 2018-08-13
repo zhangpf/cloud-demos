@@ -38,5 +38,5 @@ interface BlogStore {
 
     store @1 (key :UInt64, blog :Store);
 
-    remove @2 (key :UInt64) -> (blog :Blog);
+    remove @2 (key :UInt64);
 }

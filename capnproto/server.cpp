@@ -81,7 +81,7 @@ public:
             return kj::READY_NOW;
 
         case BlogStore::Store::PREVIOUS_GET:
-            return readBlog(blog.getPreviousGet()).then([KJ_CPCAP(context), this, key](kj::StringPtr blog) mutable {
+            return readBlog(blog.getPreviousGet()).then([ KJ_CPCAP(context), this, key ](kj::StringPtr blog) mutable {
                 storage[key] = blog;
             });
         default:
@@ -94,11 +94,12 @@ public:
 
         auto find = storage.find(key);
 
-        KJ_REQUIRE(find != storage.end(), "blog entry not found!");
-
-        context.getResults().setBlog(kj::heap<BlogImpl>(find->second));
-        storage.erase(key);
-        return kj::READY_NOW;
+        if (find == storage.end()) {
+            KJ_FAIL_REQUIRE("blog entry for " + std::to_string(key) + " not found!");
+        } else {
+            storage.erase(key);
+            return kj::READY_NOW;
+        }
     }
 
     BlogStoreImpl() = default;

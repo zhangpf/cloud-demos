@@ -189,6 +189,7 @@ int main(int argc, const char* argv[]) {
         std::cout << "Done and success! Time costed: " << elapsed << "ms." << std::endl;
     }
 
+    // Try to get a non-existing blog, and expect to catch an exception
     {
         std::cout << "Test for getting a non-existing blog (key == "
                   << BLOG_COUNT << ")....";
@@ -200,6 +201,7 @@ int main(int argc, const char* argv[]) {
         }
     }
 
+    // Copy all the blogs (from i to i + BLOG_COUNT)
     {
         std::cout << "Copy all the " << BLOG_COUNT
                   << " blogs (from i to i + " << BLOG_COUNT
@@ -233,6 +235,7 @@ int main(int argc, const char* argv[]) {
         std::cout << "Done and success!" << std::endl;
     }
 
+    // Remove all the blogs
     {
         std::cout << "Remove all the " << 2 * BLOG_COUNT << " blogs...";
         timer.reset();
@@ -249,10 +252,11 @@ int main(int argc, const char* argv[]) {
         std::cout << "Done and success! Time costed: " << elapsed << "ms." << std::endl;
     }
 
+    // Try to remove a non-existing blog (key == 0), and expect to catch an exception
     {
-        std::cout << "Again, try to get a non-existing blog (key == 0)...";
+        std::cout << "Again, try to remove a non-existing blog (key == 0)...";
         try {
-            remoteGet(blogStore, waitScope, 0);
+            remoteRemove(blogStore, waitScope, 0);
         } catch (kj::Exception const& e) {
             std::cerr << e.getDescription().cStr() << std::endl;
         }
