@@ -82,7 +82,7 @@ The below table shows the average operation latency on the c3.large instance in 
 | Operation          | Get   | Store | Remove | Copy  |
 | :----------------: | :---: | :---: | :----: | :---: |
 | Unix domain socket | 247µs | 175µs | 179µs  | 267µs |
-| Same host          | 267µs | 180µs | 181µs  | 318µs |
+| Loopback device    | 267µs | 180µs | 181µs  | 318µs |
 | Local network      | 344µs | 268µs | 241µs  | 338µs |
 
 The time for `copy` is slightly larger than that of `get`, but when server and client are on different hosts, the `copy` is better than `get`, for there is no need to send back blog data in `copy`.
