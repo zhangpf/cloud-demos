@@ -54,14 +54,14 @@ On my laptop (Lenovo Thinkpad X270 with Intel i5-6200U and 8G memory), The avera
 | Number of yields   | 100   | 1000 | 10000 | 100000  |
 | :----------------: | :---: | :---: | :----: | :---: |
 | Native thread | 769ns | 610ns  | 601ns | 591ns | 
-| UMS    | 1428µs | 245µs | 152µs  | 128µs |
+| UMS    | 1428ns | 245ns | 152ns  | 128ns |
 
 3. **1000**-threads concurrency:
 
 | Number of yields   | 100   | 1000 | 10000 | 100000  |
 | :----------------: | :---: | :---: | :----: | :---: |
 | Native thread | 941ns | 790ns  | 793ns | 785ns | 
-| UMS    | 1400ns | 276µs | 146ns  | 127ns |
+| UMS    | 1400ns | 276ns | 146ns  | 127ns |
 
 
 
