@@ -72,6 +72,7 @@ int main(int argc, char* argv[]) {
 
     for (int i = 0; i < num_fibers; i++) {
         WaitForSingleObject(user_fibers[i], INFINITE);
+        DeleteFiber(user_fibers[i]);
     }
 
     delete user_fibers;

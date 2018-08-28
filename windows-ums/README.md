@@ -37,6 +37,11 @@ Release\ms-example.exe <number-of-threads> <num-of-yields>
 Release\thread-example.exe <number-of-threads> <num-of-yields>
 ```
 
+3. Run Fiber version
+
+```
+Release\fiber-example.exe <number-of-threads> <num-of-yields>
+```
 
 ## Performance comparison
 
