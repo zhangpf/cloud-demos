@@ -160,9 +160,9 @@ int main(int argc, char* argv[]) {
 
     double elapsed = (timeEnd.QuadPart - timeStart.QuadPart) / quadpart;
 
-    printf("Duration: %fs.\n", elapsed);
-    printf("Average execution time: %dns.\n", 
-        (int)(elapsed / num_threads / num_yields * 1e9));
+    std::cout << "Duration: " << elapsed << 's.' << std::endl;
+    std::cout << "Average execution time: " <<  
+        (int)(elapsed / num_fibers / num_yields * 1e9) << "ns." << std::endl;
 
     for (int i = 0; i < num_threads; i++) {
         WaitForSingleObject(user_threads[i], INFINITE);
